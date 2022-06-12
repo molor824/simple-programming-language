@@ -1,0 +1,35 @@
+fn main() {
+    var a = Type:new(); # constructor is static method new()
+    # static methods are called by `:`
+
+    var b = object Type:new(); # b becomes an object instead of struct
+    # b type is now *Type
+
+    a = Type:staticMethod(12);
+    b = object 23; # you can turn any struct into object
+
+    print(a.type(), b.type());
+    # Output: "*Type, *int32"
+}
+type Type {
+    var field = 0; # auto set as int32
+
+    constructor(int32 a) { # constructor overloading
+        -> Type {
+            field = a,
+        }
+    }
+    fn copyMethod(this Type): Type { # takes the copy instead of reference
+        -> this;
+    }
+    fn method(this *Type): int32 {
+        print(this.field);
+
+        -> this.field;
+    }
+    fn staticMethod(int8 a): Type {
+        -> Type {
+            field = a as int32,
+        };
+    }
+}
